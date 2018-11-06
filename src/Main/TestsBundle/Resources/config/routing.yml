@@ -1,0 +1,11 @@
+main_tests_homepage:
+    path:     /
+    defaults: { _controller: MainTestsBundle:List:index }
+
+main_tests_test:
+    path:   /test/{id}
+    defaults: { _controller: MainTestsBundle:Test:test }
+
+main_tests_result:
+    path:   /result
+    defaults: { _controller: MainTestsBundle:Result:result }

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="container mt-2">
+            <a href="\" class="btn btn-primary">Back to List</a>
+            <hr>
+        <form action="\result" method="post">
+        <input type="hidden" name="id_test" value="{{ id_test }}">
+        <ul class="list-group p-2 mt-1">
+        {% for question in questions %}
+            <p>{{ question.text }}</p>
+            {% if question.type == "one" %}
+            <li class="list-group-item mb-2">
+                <div class="radio">
+                    {% for answer in question.answers|split(";") %}
+                    <p><label><input type="radio" name="{{question.id}}" value="{{ answer }}"> {{ answer }}</label></p>
+                    {% endfor %}
+                </div> 
+             </li>
+            {% endif %}
+            {% if question.type == "several" %}
+            <li class="list-group-item mb-2"> 
+                <div class="checkbox">
+                    {% for key, answer in question.answers|split(";") %}
+                    <p><label><input type="checkbox" name="s{{question.id}}_{{key}}" value="{{ answer }}"> {{ answer }}</label></p>
+                    {% endfor %}
+                </div>     
+            </li>
+            {% endif %}
+            {% if question.type == "text" %}
+            <li class="list-group-item mb-2"> <input type="text" name="{{question.id}}"> </li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+        <hr>
+        <input type="submit" value="Send">
+        </form>
+    </div>
+</div>
+</body>
+</html>
